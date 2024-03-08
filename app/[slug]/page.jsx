@@ -13,7 +13,7 @@ export default function Page({ params }) {
 
   return (
     <>
-      <main className="container mx-auto py-20">
+      <main className="container mx-auto py-24">
         <h1 className="text-center mb-5 text-4xl font-semibold">Statistic of {pokemons?.data?.name}</h1>
         <div className="grid grid-cols-3 gap-10">
           <Card>

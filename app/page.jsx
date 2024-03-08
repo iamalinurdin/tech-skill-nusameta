@@ -14,23 +14,31 @@ export default function Home() {
 
   return (
     <main className="p-24">
-      <h1>Pokemon List</h1>
-      <div className="grid grid-cols-3 gap-3 justify-center">
-        {pokemons?.results.map((item) => (
-          <>
-            <PokemonItem name={item.name} url={item.url} />
-          </>
-        ))}
-      </div>
-      <div className="mt-10 flex justify-between items-center">
-        <p>Show {offset + 1} to {offset + 21}</p>
-        <Pagination 
-          onClickPreviousHandler={() => setOffset(old => old -= 21)}
-          onClickNextHandler={() => setOffset(old => old += 21)}
-          nextURL={pokemons?.next}
-          previousURL={pokemons?.previous}
-        />
-      </div>
+      <h1 className="text-center mb-5 text-4xl font-semibold">Pokemon List</h1>
+      {isLoading ? (
+        <div className="w-full h-[300px] flex items-center justify-center">
+          <h1 className="text-xl font-semibold text-center animate-ping">Please wait</h1>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-3 gap-3 justify-center">
+            {pokemons?.results.map((item) => (
+              <>
+                <PokemonItem name={item.name} url={item.url} />
+              </>
+            ))}
+          </div>
+          <div className="mt-10 flex justify-between items-center">
+            <p>Show {offset + 1} to {offset + 21}</p>
+            <Pagination 
+              onClickPreviousHandler={() => setOffset(old => old -= 21)}
+              onClickNextHandler={() => setOffset(old => old += 21)}
+              nextURL={pokemons?.next}
+              previousURL={pokemons?.previous}
+            />
+          </div>
+        </>
+      )}
     </main>
   );
 }
