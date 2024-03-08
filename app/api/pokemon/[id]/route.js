@@ -1,5 +1,7 @@
 export async function GET(request, { params }) {
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon/1', {
+  const id = params.id;
+
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
     headers: {
       'Content-Type': 'application/json'
     }
