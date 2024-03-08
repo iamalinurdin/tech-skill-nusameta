@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 export default function Home() {
   const [offset, setOffset] = useState(0);
   const {data: pokemons, isLoading} = useQuery({
-    queryFn: () => fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=21`).then((response) => response.json()),
+    queryFn: () => fetch(`/api/pokemons?offset=${offset}`).then((response) => response.json()),
     queryKey: ['pokemons', offset]
   })
 
@@ -22,19 +22,19 @@ export default function Home() {
       ) : (
         <>
           <div className="grid grid-cols-3 gap-3 justify-center">
-            {pokemons?.results.map((item) => (
-              <>
+            {pokemons?.data?.results?.map((item) => (
+              <div key={item.name}>
                 <PokemonItem name={item.name} url={item.url} />
-              </>
+              </div>
             ))}
           </div>
           <div className="mt-10 flex justify-between items-center">
-            <p>Show {offset + 1} to {offset + 21}</p>
+            <p>Show {offset + 1} to {offset + 20}</p>
             <Pagination 
-              onClickPreviousHandler={() => setOffset(old => old -= 21)}
-              onClickNextHandler={() => setOffset(old => old += 21)}
-              nextURL={pokemons?.next}
-              previousURL={pokemons?.previous}
+              onClickPreviousHandler={() => setOffset(old => old -= 20)}
+              onClickNextHandler={() => setOffset(old => old += 20)}
+              nextURL={pokemons?.data?.next}
+              previousURL={pokemons?.data?.previous}
             />
           </div>
         </>
